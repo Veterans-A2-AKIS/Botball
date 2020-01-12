@@ -1,0 +1,131 @@
+#include <kipr/botball.h>
+
+//RIGHT IS ALWAYS BEFORE LEFT
+//Declaring constants for motor ports
+int rightmotor = 0;
+int leftmotor = 1;
+//Declaring constants for the sensor ports
+int tophatright = 0;
+int tophatleft = 1;
+int lightsense = 2;
+//Declaring servos
+int serv = 0;
+int rminiserv = 1;
+int lminiserv = 2; 
+//Declaring other constants
+int whiteright = 0; //initialising constants to be used later
+int whiteleft = 0;
+int servpos = 0;
+int rservpos = 0; //to find the position of the servo. 
+int rservoOpen = 1000; //servo value for the claw to be open
+int rservoClose = 1940; //servo value for the claw to close
+int lservpos = 0;
+int lservoOpen = 320;
+int lservoClose = 1960;
+
+//-------------------------------BOT MOVEMENTS FUNCTIONS-------------------------------
+void forward(int time)
+{
+  printf("forward");
+  motor_power(leftmotor, 100);
+  motor_power(rightmotor, 96); //The motor power is less for the right motor as it's more powerful than the right
+  msleep(time);
+  ao();
+}
+void backward(int time)
+{
+  printf("backward");
+  motor_power(leftmotor, -98);
+  motor_power(rightmotor, -95); //The motor power is less for the right motor as it's more powerful than the right
+  msleep(time);
+  ao();
+}
+void clockwise1() //90 degrees clockwise using only 1 wheel
+{
+  motor(leftmotor,80);
+  msleep(1000); //**************************************
+  ao();
+}
+// initiallly the speed is 100 and slowly decrease to 0, allows effect of momentum to be reduced
+void clockwise(int angle) //parameter speed is default 100
+{
+  int motorspeed = 100;
+  while (motorspeed > 0)            //loop while motor speed is not yet 0
+  {
+    motor(rightmotor,-motorspeed);  //move right and left motor
+    motor(leftmotor,motorspeed);
+    msleep(65*(angle/90));          //sleep depends on angle
+    motorspeed = motorspeed - 5;      //derease speed to reduce momentum at the end of turn
+  }
+  ao();
+}
+
+void anticlockwise(int angle) //parameter speed is default 100
+{
+  int motorspeed = 100;
+  while (motorspeed > 0)            //loop while motor speed is not yet 0
+  {
+    motor(rightmotor,motorspeed);     //move right and left motor   
+    motor(leftmotor,-motorspeed);   // - to invert direction
+    msleep(62*(angle/90));          //sleep depends on angle
+    motorspeed = motorspeed - 5;      //decrease speed to reduce momentum at the end of turn
+  }
+  ao();
+} 
+
+//-------------------------------CLAW/ARM FUNCTIONS-------------------------------
+void closing(int picking) //function to close the claw
+{
+  while (rservpos < rservoClose && lservpos < lservoClose)  
+  {
+    rservpos = rservpos + 10; //in small increments, 
+    lservpos = lservpos + 10;
+    set_servo_position(rminiserv, rservpos); //port, position
+    set_servo_position(lminiserv, lservpos);
+    msleep(10);
+    ao;
+  }
+}
+
+void opening() //opens claw
+{
+  while (rservpos > rservoClose && lservpos > lservoClose)  
+  {
+    rservpos = rservpos - 10; //in small increments, 
+    lservpos = lservpos - 10;
+    set_servo_position(rminiserv, rservpos); //port, position
+    set_servo_position(lminiserv, lservpos);
+    msleep(10);
+    ao;
+  }    
+}
+void clawup()
+{
+    while (servpos < 1700)
+    {
+    servpos = servpos + 10; //in small increments, 
+    set_servo_position(serv, servpos); //port, position
+    msleep(10);
+    ao;
+    }
+}
+void clawdown()
+{
+    while (servpos > 0)
+    {
+    servpos = servpos - 10; //in small increments, 
+    set_servo_position(serv, servpos); //port, position
+    msleep(10);
+    ao;
+    }
+}
+
+int main()
+{
+  wait_for_light(lightsense);
+shut_down_in(120); //automatically shut downs in 2 minutes
+  enable_servos();
+    return 0;
+  }
+
+
