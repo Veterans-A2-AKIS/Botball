@@ -1,0 +1,37 @@
+int door_1  = 1;							//This is the door furthest away from the open one (the left-most door).
+int door_2 = 2;							//This is the door in the middle.
+int closed = 1000;						//This is the micro-servo position when the door is closed.
+int opened = 2040;						//This is the micro-servo position when the door is completely open.
+
+void open(int door)						//This function is used to open a door. The argument is the door # e.g. door_1.
+{
+int servo = closed;	/*This variable is being declared so that we can ensure the door is properly closed before we open it. Without this we would not be able to increment, because we need a variable to increment.*/
+	while (servo < opened)					//As long as the door is not fully open, we will do this.
+	{
+	set_servo_position(door, servo);			//The chosen door (in the argument) is being closed properly i.e. set to “closed”.
+	servo = servo + 40;					//Increment up by a small amount to not burn the micro-servo.
+	msleep(10);						//Leave a small time interval between each increment – 10 milliseconds.
+	}
+}
+
+void close(int door)						// This function is used to close a door. The argument is the door # e.g. door_2.
+{
+int servo = opened;	/*This variable is being declared so that we can ensure the door is properly opened before we close it. Without this we would not be able to increment, because we need a variable to increment.*/
+	while (servo < closed)					//As long as the door is not fully closed, we will do this.
+	{
+set_servo_position(door, servo);	/*The chosen door (in the argument) is being opened properly i.e. set to “opened”.*/
+	servo = servo – 40;					//Increment down by a small amount to not burn the micro-servo.
+	msleep(10);						//Leave a small time interval between each increment – 10 milliseconds.
+	}
+}
+
+int main()							//This is the main function that will be run/executed.
+{
+open(door_1);	//First, we open the first door. The third box (the one with no door) will be dealt with before this line.
+msleep(1000);	/*This time interval is only to represent the time it would take to turn the boxes and deposit the poms. There will be a different set of code in place of this.*/
+	close(door_1);						//The first door is closed.
+msleep(2000);	/*This represents the time it takes to turn the boxes back and move to the boxes so that the next set of poms can be deposited. There will be a different set of code in place of this.*/
+	open(door_2);						//Do the same for the second door as you did for the first door. See code above.
+	msleep(1000);
+	close(door_2);
+}
