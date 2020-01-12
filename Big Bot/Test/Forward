@@ -1,0 +1,17 @@
+#include <kipr/botball.h>
+
+int main()
+{
+   create_connect();
+    create_drive_direct(-150,150);
+    msleep(2000);
+    
+    create_drive_direct(0,0);
+    
+    create_drive_direct(-250,-250);
+    msleep(2000);
+    create_drive_direct(0,0);
+    
+    create_disconnect();
+    return 0;
+}
