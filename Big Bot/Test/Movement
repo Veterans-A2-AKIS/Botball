@@ -1,0 +1,50 @@
+#include <kipr/botball.h>
+int wanteddistance
+void forward()
+{
+    int currentdistance = 0;
+    set_create_distance(currentdistance);
+        while (currentdistance < wanteddistance)
+        {
+            create_drive_direct(10, 10);
+            currentdistance = get_create_distance();
+        }
+}
+void back()
+{
+    int currentdistance = 0;
+    set_create_distance(currentdistance);
+        while (currentdistance > wanteddistance)
+        {
+            create_drive_direct(-10, -10);
+            currentdistance = get_create_distance();
+        }
+}
+void right()
+{
+    int currentangle = 0;
+    set_create_total_angle(currentangle);
+	while (currentangle < 90)
+    {
+        create_drive_direct(30, 0);
+        currentangle = get_create_total_angle();
+    }
+}
+void left()
+{
+    int currentangle = 0;
+    set_create_total_angle(currentangle);
+	while (currentangle > -90)
+    {
+        create_drive_direct(0, 30);
+        currentangle = get_create_total_angle();
+    }
+}
+
+int main()
+{
+Create_connect()
+ left()
+    
+    return 0;
+}
