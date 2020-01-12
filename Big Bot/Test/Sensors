@@ -1,0 +1,16 @@
+#include <kipr/botball.h>
+
+int main()
+{
+    while (1==1)
+    {
+        create_connect();
+        printf("This is the left bump\n");
+        printf("%d\n",get_create_lclightbump() );
+        printf("this is the right bump\n");
+        printf("%d\n", get_create_rclightbump());  
+        msleep(1000);
+        create_disconnect();
+    }
+    return 0;
+}
