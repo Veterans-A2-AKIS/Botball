@@ -1,0 +1,19 @@
+#include <kipr/botball.h>
+int main() //code for feeder
+{
+
+enable_servos();
+set_servo_position(2, 1603); //original position of feeder
+    int x = 0;
+do
+{
+    set_servo_position(2,300); //servo moves so pom falls
+    msleep(500);
+    set_servo_position(2,1603); //servo goes back to original position to allow camera to scan next pom
+	msleep(2500); //time needed for camera to scan 
+    x++;
+}
+while(x<=12);
+}
+    
+    
