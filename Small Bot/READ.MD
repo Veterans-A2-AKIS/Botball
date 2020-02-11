@@ -1,0 +1,1 @@
+Small Bot coded in a different method compared to the big bot, while both used iterative coding methods, small bots code was done in a single file. For them, this method was feasible due to the small bot finishing around 2 weeks before the big bot and therefore they had lots of time to code and further refine their build even if only one or two coders coded.

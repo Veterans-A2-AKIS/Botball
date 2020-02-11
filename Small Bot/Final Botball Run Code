@@ -1,0 +1,68 @@
+#include <kipr/botball.h>
+
+int main()
+{
+    int arm = 0;
+    int claw = 1;
+    int right_wheel = 0;
+    int left_wheel = 1;
+    int down = 2047;
+    int hup = 1270;
+    int fup = 735; 
+    int clawclose = 1700;
+    int clawopen = 500;
+    
+    //FIRST CUBE
+    enable_servos();
+    set_servo_position(arm,hup); // move arm half up 
+    msleep(80);
+    set_servo_position(claw,700); // open claw 
+    msleep(800);
+    motor(right_wheel,48); // move forward 
+    motor(left_wheel,50);
+    msleep(3000);
+    ao();
+    set_servo_position(arm,1600); // arm down 
+    msleep(800);
+    set_servo_position(claw,clawclose); //grabbing first yellow cube
+    msleep(800);
+    set_servo_position(arm,1000); // raise arm 
+    msleep(800);
+    motor(right_wheel,-48); //move backward 
+    motor(left_wheel,-50);
+    msleep(5000);
+    ao();
+    motor(right_wheel,40); // move to the right 
+    msleep(800);
+    ao();
+    set_servo_position(claw,687); // open claw to drop the yellow cube 
+    msleep(800);
+    //............................
+    
+     //SECOND CUBE
+   motor(right_wheel,-40); // move to right 
+   msleep(1900);
+   ao();
+   set_servo_position(claw,1000); // close the claw for a bit 
+   msleep(800);
+   motor(right_wheel,48); // move forward to the second yellow cube 
+   motor(left_wheel,50);
+   msleep(4900);
+   ao();
+    set_servo_position(claw,800);// open the claw a tiny bit 
+   msleep(800);
+     motor(right_wheel,38); // move forward to adjust 
+   motor(left_wheel,40); 
+   msleep(1200);
+    set_servo_position(claw,700); // open claw for a bit 
+    msleep(500);
+   set_servo_position(arm,1535); // arm down 
+   msleep(800);   
+   set_servo_position(claw,1350); // close claw 
+   msleep(800);
+   set_servo_position(arm,980); // arm up 
+   msleep(800);
+    return 0;
+}
+
+
