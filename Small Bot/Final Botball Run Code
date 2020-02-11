@@ -2,14 +2,14 @@
 
 int main()
 {
-    int arm = 0;
-    int claw = 1;
+    int arm = 2;
+    int claw = 3;
     int right_wheel = 0;
     int left_wheel = 1;
     int down = 2047;
     int hup = 1270;
     int fup = 735; 
-    int clawclose = 1700;
+    int clawclose = 1300;
     int clawopen = 500;
     
     //FIRST CUBE
@@ -30,39 +30,194 @@ int main()
     msleep(800);
     motor(right_wheel,-48); //move backward 
     motor(left_wheel,-50);
-    msleep(5000);
+    msleep(4600);
     ao();
     motor(right_wheel,40); // move to the right 
-    msleep(800);
+    msleep(650);
     ao();
+    while(get_servo_position(arm)<1500)
+    {
+    	set_servo_position(arm,get_servo_position(arm)+10); // arm down 
+    	msleep(50);
+    }
+    
     set_servo_position(claw,687); // open claw to drop the yellow cube 
+    msleep(800);
+    set_servo_position(arm,hup);
     msleep(800);
     //............................
     
      //SECOND CUBE
    motor(right_wheel,-40); // move to right 
-   msleep(1900);
+   msleep(1700);
    ao();
    set_servo_position(claw,1000); // close the claw for a bit 
    msleep(800);
    motor(right_wheel,48); // move forward to the second yellow cube 
    motor(left_wheel,50);
-   msleep(4900);
+   msleep(5650);
    ao();
-    set_servo_position(claw,800);// open the claw a tiny bit 
+    set_servo_position(claw,800);// close the claw a tiny bit 
    msleep(800);
-     motor(right_wheel,38); // move forward to adjust 
-   motor(left_wheel,40); 
-   msleep(1200);
-    set_servo_position(claw,700); // open claw for a bit 
+    while(get_servo_position(arm)<1500)
+    {
+    	set_servo_position(arm,get_servo_position(arm)+10); // arm down 
+    	msleep(50);
+    }
+   set_servo_position(claw,1400); // close claw 
+   msleep(800);
+   set_servo_position(arm,777); // arm up 
+   msleep(800);
+    motor(right_wheel,-48); // move back from the second yellow cube 
+   motor(left_wheel,-50);
+   msleep(5600);
+   ao();
+    motor(right_wheel,48);    //turn to the first cube in the box
+    msleep(1500);
+    ao();
+    motor(right_wheel,48);      // move towards the first cube slowly 
+    motor(left_wheel,50);
+    msleep(200);
+    ao();
+    
+    while(get_servo_position(arm)<900)
+    {
+    	set_servo_position(arm,get_servo_position(arm)+10); // arm down 
+    	msleep(50);
+    }
+    msleep(1000);
+    set_servo_position(claw,clawopen);   
+    msleep(800);
+    set_servo_position(arm,680);
+    msleep(1000);
+    motor(right_wheel,-48);         //position to move towards the red stack
+    msleep(2000); 
+    ao();
+    motor(right_wheel,48);               
+    motor(left_wheel,50);
+    msleep(3000);
+    ao();
+    motor(right_wheel,-48);
+    msleep(1800); 
+    ao();
+    motor(right_wheel,48);         //move towards red stack
+    motor(left_wheel,50);
+    msleep(3080);
+    ao();
+    while(get_servo_position(arm)<2000)
+    {
+    	set_servo_position(arm,get_servo_position(arm)+10); // arm down 
+    	msleep(50);
+    }
+    motor(right_wheel,48);
+    motor(left_wheel,50);
+    msleep(280);
+    ao();
+    msleep(700);
+    while(get_servo_position(claw)<1500)
+    {
+    	set_servo_position(claw,get_servo_position(claw)+10);    //pick up red blocks
+    	msleep(50);
+    }
+    set_servo_position(arm,1500);
     msleep(500);
-   set_servo_position(arm,1535); // arm down 
-   msleep(800);   
-   set_servo_position(claw,1350); // close claw 
-   msleep(800);
-   set_servo_position(arm,980); // arm up 
-   msleep(800);
+    motor(right_wheel,-35);                //turn to the box
+    msleep(8100);
+    ao();
+    motor(right_wheel,48);
+    motor(left_wheel,50);
+    msleep(800);
+    ao();
+    while(get_servo_position(arm)<2000)
+    {
+    	set_servo_position(arm,get_servo_position(arm)+10); // arm down 
+    	msleep(50);
+    }
+    set_servo_position(claw,clawopen);        //drop cubes in the box
+    msleep(1500);
+    motor(right_wheel,-48);
+    motor(left_wheel,-50);
+    msleep(800);
+    ao();
+    msleep(500);
+    set_servo_position(arm,700);
+    msleep(800);
+    motor(right_wheel,48);        //turn around to face green blocks
+    motor(left_wheel,-50);
+    msleep(2900);
+    ao();
+    motor(right_wheel,-48);
+    motor(left_wheel,-50);
+    msleep(400);
+    ao();
+    while(get_servo_position(arm)<2000)
+    {
+    	set_servo_position(arm,get_servo_position(arm)+10); // arm down 
+    	msleep(50);
+    }
+    motor(right_wheel,48);
+    motor(left_wheel,50);
+    msleep(300);
+    ao();
+    while(get_servo_position(claw)<1500)
+    {
+    	set_servo_position(claw,get_servo_position(claw)+10);    //pick up green blocks
+    	msleep(50);
+    }
+    set_servo_position(arm,1500);
+    msleep(500);
+    motor(right_wheel,-48);        //turn back to the box 
+    motor(left_wheel,50);
+    msleep(2250);
+    ao();
+    motor(right_wheel,48);         
+    motor(left_wheel,50);
+    msleep(2000);
+    ao();
+    while(get_servo_position(arm)<2000)
+    {
+    	set_servo_position(arm,get_servo_position(arm)+10); // arm down 
+    	msleep(50);
+    }
+    set_servo_position(claw,clawopen);        //drop cubes in the box
+    msleep(1500);
+    motor(right_wheel,-48);
+    motor(left_wheel,-50);
+    msleep(800);
+    ao();
+    motor(right_wheel,48);   //turn to face final yellow cube
+    motor(left_wheel,-50);
+    msleep(3100);
+    ao();
+    set_servo_position(arm,hup+100);
+    msleep(300);
+    set_servo_position(claw,1099);
+    msleep(300);
+    motor(right_wheel,48);        //move towards final yellow cube 
+    motor(left_wheel,50);
+    msleep(2000);
+    ao();
+    set_servo_position(claw,800);
+    msleep(700);
+    motor(right_wheel,48);        
+    motor(left_wheel,50);
+    msleep(300);
+    ao();
+    set_servo_position(claw,1301);
+    msleep(700);
+    set_servo_position(arm,777);
+    msleep(300);
+    motor(right_wheel,-48);        //move away from the final yellow cube 
+    motor(left_wheel,-50);
+    msleep(2000);
+    ao();
+    motor(right_wheel,-48);   
+    motor(left_wheel,50);
+    msleep(3300);
+    ao();
+    set_servo_position(arm,2000);
     return 0;
 }
+
 
 
