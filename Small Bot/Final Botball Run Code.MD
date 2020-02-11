@@ -1,0 +1,1 @@
+This code we were very happy with, our bot successfully carried out the functions/tasks/ goals set for it in JUST under the 2-minute deadline (1:55 Minutes) and had a success rate of about 8/10 where it failed at picking yellow cube 3 ONLY. Further refinemtnt will be done to increase the chances of success.
