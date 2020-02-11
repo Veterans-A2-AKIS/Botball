@@ -1,6 +1,8 @@
 #include <kipr/botball.h>
 
 int main()
+
+
 {
     enable_servos();
     //port of claw servo = 0
@@ -22,7 +24,65 @@ int main()
     //port of plunger motor = 1
     //port of tray motor = 2
     //motor = 0 for base of arm
+   
+    create_connect();
+    create_drive_direct(100,100);//speed of the connect at mm/s (right,left)
+    msleep(5000);
     
+    int x = 1;
+  
+   
+        while (x<4) {
+            
+             //clockwise 90degrees
+    create_drive_direct(-200,200);
+    msleep(900);
+    create_drive_direct(100,100);
+    msleep(1900);
+            
+                         //anticlockwise 90degrees
+
+       create_drive_direct(200,-200);
+    msleep(900);
+            x= x+1;
+        }
+        
+    
+    
+    create_drive_direct(-200,200);
+    msleep(1800);
+    create_drive_direct(100,100);
+    msleep(3000);
+    
+    x=1;
+    while (x<3) {
+            
+             //clockwise 90degrees
+    create_drive_direct(-200,200);
+    msleep(900);
+    create_drive_direct(100,100);
+    msleep(2000);
+            
+                         //anticlockwise 90degrees
+
+       create_drive_direct(200,-200);
+    msleep(900);
+            x= x+1;
+        }
+
+        create_stop();
+ 
+ 
+    create_disconnect();
+    
+    
+    return 0;
+    
+
 }
 
+    
+    
+    
+    
 

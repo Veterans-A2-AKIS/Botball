@@ -1,0 +1,28 @@
+#include <kipr/botball.h>
+
+int main()
+{
+    enable_servos();
+    //port of claw servo = 0
+       
+        
+     //port of arm servo = 1
+       set_servo_position(0,600);
+    msleep(4000); 
+        set_servo_position(1,2047);
+    msleep(4000); 
+    
+    
+    set_servo_position(1,0);
+    msleep(4000);
+    set_servo_position(0,0);
+    msleep(2000);
+    
+    //port of feeder servo = 2
+    //port of plunger motor = 1
+    //port of tray motor = 2
+    //motor = 0 for base of arm
+    
+}
+
+
