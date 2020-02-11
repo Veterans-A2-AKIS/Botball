@@ -5,11 +5,11 @@ int main()
 
     
     int col = 0;
-    while (1==1)
+    while (1==1) //Loop to count # of objects in each channel
     {
         col= -1;
         
-        camera_open_black(); 
+        camera_open_black(); //Opening camera and updating it
     	camera_update();
       	
         
@@ -37,7 +37,7 @@ int main()
             }
             case 2:
                 {
-                    printf("Orange");
+                    printf("Orange"); 'If orange print orange
                   
                     break;
                 }
