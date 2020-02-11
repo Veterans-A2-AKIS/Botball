@@ -1,86 +1,70 @@
 #include <kipr/botball.h>
 int main()
 {
-  camerascanning();
-    return -1;
-}
-void camerascanning ()
-
-{
-    // declaring constants to be changed later when decided upon
-    int camport= 0; //decide which port you want this motor connected to camera scanning on 
-    int campower= 50; //decide what power you want the motor connected to camera to work on 
-    int redpos =0; //direction needed to be moved by when going from starting point to red box  
-    int redvel =0; //velocity needed to be moved by in the way to go to red box 
-    int redsleep = 0; //time in milliseconds it takes to move to red box
-    int greenpos= 1000; //direction needed to be moved by when going from starting point to green box
-    int greenvel=  450 ;//velocity needed to be moved by in the way to go to green box
-    int greensleep = 5000; //time in milliseconds it takes to move to green box
-    int orangepos= 0 ; //direction needed to be moved by when going from starting point to orange box
-    int orangevel= 0 ; //velocity needed to be moved by in the way to go to orange box
-    int orangesleep = 0; //time in milliseconds it takes to move to orange box
-    int redpom = 0; //time it takes for red pom to fall in vox when its stopped befor moving back to original position 
-    int greenpom = 5000; //time it takes for green pom to fall in vox when its stopped befor moving back to original position
-    int orangepom = 0; //time it takes for orange pom to fall in vox when its stopped befor moving back to original position
-    int greenoriginalpos = 0; //direction to go from green box to starting point
-    int redoriginalpos = 0; //direction to go from red box to starting point
-    int orangeoriginalpos = 0; //direction to go from orange box to starting point
-    int greenoriginalvel =-1000; // velocity motor to go at going back from green to starting point 
-    int redoriginalvel =0; // velocity motor to go at going back from red to starting point
-    int orangeoriginalvel =0; // velocity motor to go at going back from orange to starting point
-    int camsleep =0; // set time for camera to check the next pom 
     
-    // FUNCTIONS ... any thing under this point shouldn't be altered 
-    motor (camport, campower); //turn on motor at specfied port and specified power
-   camera_open_black(); //opens connection to camera
+
+    
+    int col = 0;
+    while (1==1)
+    {
+        col= -1;
         
-      int x=0; // starting a do while loop to decide how box will move after camera detecting a specific colour
- do                
-  {  
-     msleep(1000);
-     camera_update(); //gets a new image and starts tracking
-     //trying to se what pom colour is detected .. no need for coordinate because the camera is so colse tp the pom it only sees the pom anyway
-     
-      get_object_count(1); //gets number of poms been found as green just to know if pom was green or not
-      get_object_count(3); ///gets number of poms been found as red just to know if pom was red or not
-      get_object_count(2);//gets number of poms been found as orange just to know if pom was orange or not
-   while 
-        (get_object_count(1)>0) //to see if the pom detected was green 
-   {
-     mrp (camport, greenvel , greenpos); // moves to green box
-       msleep (greensleep); //time takes to go to green box
-     mrp (camport , 0 , 0); //setting the velocity to 0 to stop the box waiting for the pom to fall in it 
-       msleep (greenpom); //time taken for green pom to fall in the stationary box
-     mrp (camport, greenoriginalvel, greenoriginalpos); //to go back to starting point
-       msleep (greensleep); //time it takes to go back to starting point would be the same as to come to the green box
-         }
-   while 
-       (get_object_count(3)>0) //to see if the pom detected was red 
-   {
-     mrp (camport, redvel , redpos); // moves to red box
-       msleep (redsleep); //time takes to go to red box
-     mrp (camport , 0 , 0); //setting the velocity to 0 to stop the box waiting for the pom to fall in it 
-       msleep (redpom); //time taken for red pom to fall in the stationary box
-     mrp (camport, redoriginalvel, redoriginalpos); //to go back to starting point
-       msleep (redsleep); //time it takes to go back to starting point would be the same as to come to the red box
-         }
-   while 
-       (get_object_count(2)>0) //to see if the pom detected was orange 
-   {
-     mrp (camport, orangevel , orangepos); // moves to orange box
-       msleep (orangesleep); //time takes to go to orange box
-     mrp (camport , 0 , 0); //setting the velocity to 0 to stop the box waiting for the pom to fall in it 
-       msleep (orangepom); //time taken for orange pom to fall in the stationary box
-     mrp (camport, orangeoriginalvel, orangeoriginalpos); //to go back to starting point
-       msleep (orangesleep); //time it takes to go back to starting point would be the same as to come to the orange box
-         }     
-   msleep(camsleep); //time for the next pom to come and take a new pic of it
-        x++;
-  }
-     while (x< 12); 
-       
-      }
+        camera_open_black(); 
+    	camera_update();
+      	
+        
+        if (get_object_count(0)>0)
+        {	
+            col = 0;            
+        }
+        if  (get_object_count(1)>0)
+        {
+            col = 1;       
+        }
+        switch (col)
+        {
+            case 0:
+            {
 
+            green();     
+            	break;
+            }
+            case 1:
+            {
+                   red();
+                      
+                    break;
+            }
+            case 2:
+                {
+                    printf("Orange");
+                  
+                    break;
+                }
+        }
+       camera_close();
+           
+          
+    }
+    return 0;
+}
 
-
-
+void green ()
+{
+                	printf("Green");
+    mrp(0,200,0);
+        msleep(3000);
+    //mrp(0,0,0);
+      //  msleep(3000);
+    
+}
+void red()
+{
+    
+     printf("Red");
+    mrp(0,400,-1610);
+        msleep(3000);
+    //mrp(0,0,0);
+        //msleep(3000);
+    
+}
